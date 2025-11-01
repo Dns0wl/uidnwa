@@ -1,0 +1,309 @@
+/**
+ * HW On Sale - Theme Configuration
+ * Customize accent colors and design tokens for your luxury brand
+ * 
+ * USAGE:
+ * 1. Enqueue this file AFTER onsale.css
+ * 2. Uncomment and modify the theme you want to use
+ * 3. Or create your own custom theme below
+ * 
+ * To apply a theme, add the class to the <body> tag:
+ * <body class="hw-theme-givenchy"> or via WordPress:
+ * add_filter('body_class', function($classes) {
+ *     $classes[] = 'hw-theme-givenchy';
+ *     return $classes;
+ * });
+ */
+
+/* ============================================
+   THEME 1: CLASSIC LUXURY (Default)
+   Inspired by: Givenchy, Balenciaga
+   ============================================ */
+
+/* Already defined in main CSS - no override needed */
+
+
+/* ============================================
+   THEME 2: VIBRANT PINK (Brand Accent)
+   Inspired by: Pink fashion houses
+   ============================================ */
+
+body.hw-theme-pink {
+	--hw-accent: #ED1B76;
+	--hw-accent-hover: #c91563;
+}
+
+
+/* ============================================
+   THEME 3: TEAL SOPHISTICATION
+   Inspired by: Modern luxury brands
+   ============================================ */
+
+body.hw-theme-teal {
+	--hw-accent: #3C6E71;
+	--hw-accent-hover: #2d5457;
+}
+
+
+/* ============================================
+   THEME 4: DEEP EMERALD
+   Inspired by: Heritage luxury
+   ============================================ */
+
+body.hw-theme-emerald {
+	--hw-accent: #1a4d2e;
+	--hw-accent-hover: #0f3320;
+}
+
+
+/* ============================================
+   THEME 5: MIDNIGHT BLUE
+   Inspired by: Minimalist luxury
+   ============================================ */
+
+body.hw-theme-midnight {
+	--hw-accent: #1e3a5f;
+	--hw-accent-hover: #152842;
+}
+
+
+/* ============================================
+   THEME 6: BURNT ORANGE
+   Inspired by: Warm contemporary luxury
+   ============================================ */
+
+body.hw-theme-orange {
+	--hw-accent: #d4621f;
+	--hw-accent-hover: #b35319;
+}
+
+
+/* ============================================
+   THEME 7: GOLD ELEGANCE
+   Inspired by: Classic opulence
+   ============================================ */
+
+body.hw-theme-gold {
+	--hw-accent: #c9a961;
+	--hw-accent-hover: #a88d4f;
+	--hw-accent-ink: #111111; /* Dark text on gold */
+}
+
+
+/* ============================================
+   THEME 8: MONOCHROME
+   Pure black & white luxury
+   ============================================ */
+
+body.hw-theme-mono {
+	--hw-accent: #111111;
+	--hw-accent-hover: #2a2a2a;
+	--hw-accent-ink: #ffffff;
+}
+
+
+/* ============================================
+   THEME 9: SOFT ROSE
+   Inspired by: Feminine luxury brands
+   ============================================ */
+
+body.hw-theme-rose {
+	--hw-accent: #d4978f;
+	--hw-accent-hover: #ba7f78;
+	--hw-accent-ink: #ffffff;
+}
+
+
+/* ============================================
+   THEME 10: FOREST GREEN
+   Inspired by: Sustainable luxury
+   ============================================ */
+
+body.hw-theme-forest {
+	--hw-accent: #2d5016;
+	--hw-accent-hover: #1f3810;
+}
+
+
+/* ============================================
+   CUSTOM THEME
+   Create your own brand colors here
+   ============================================ */
+
+/*
+body.hw-theme-custom {
+	--hw-accent: #YOUR_BRAND_COLOR;
+	--hw-accent-hover: #YOUR_HOVER_COLOR;
+	--hw-accent-ink: #ffffff;
+	
+	// Optional: Override other tokens
+	--hw-radius: 20px;
+	--hw-shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+*/
+
+
+/* ============================================
+   ADVANCED CUSTOMIZATION
+   Override more design tokens for full control
+   ============================================ */
+
+/*
+body.hw-theme-custom-advanced {
+	// Colors
+	--hw-bg: #fafafa;
+	--hw-ink: #0a0a0a;
+	--hw-ink-soft: #1a1a1a;
+	--hw-muted: #6b7280;
+	--hw-line: #e0e0e0;
+	--hw-line-soft: #f0f0f0;
+	
+	// Accent
+	--hw-accent: #your-color;
+	--hw-accent-hover: #your-hover-color;
+	--hw-accent-ink: #ffffff;
+	
+	// Shadows
+	--hw-shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+	--hw-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.07);
+	--hw-shadow-hover: 0 10px 28px rgba(0, 0, 0, 0.09);
+	
+	// Border Radius
+	--hw-radius: 24px;
+	--hw-radius-sm: 16px;
+	--hw-radius-pill: 9999px;
+	
+	// Spacing (if you want different scale)
+	--hw-space-1: 6px;
+	--hw-space-2: 10px;
+	--hw-space-3: 14px;
+	--hw-space-4: 20px;
+	--hw-space-5: 28px;
+	--hw-space-6: 40px;
+	
+	// Typography
+	--hw-text-base: 1rem;
+	--hw-text-lg: 1.25rem;
+	
+	// Transitions
+	--hw-duration: 300ms;
+}
+*/
+
+
+/* ============================================
+   SEASONAL THEMES
+   Switch themes for different seasons/campaigns
+   ============================================ */
+
+/* WINTER / HOLIDAY */
+body.hw-theme-winter {
+	--hw-accent: #2d5a7b;
+	--hw-accent-hover: #1f4057;
+}
+
+/* SPRING / FRESH */
+body.hw-theme-spring {
+	--hw-accent: #7ea172;
+	--hw-accent-hover: #678560;
+}
+
+/* SUMMER / VIBRANT */
+body.hw-theme-summer {
+	--hw-accent: #e8925c;
+	--hw-accent-hover: #d17a47;
+}
+
+/* FALL / WARM */
+body.hw-theme-fall {
+	--hw-accent: #a66d4f;
+	--hw-accent-hover: #8b5a42;
+}
+
+
+/* ============================================
+   ACCESSIBILITY ENHANCEMENTS
+   High contrast theme for better readability
+   ============================================ */
+
+body.hw-theme-high-contrast {
+	--hw-bg: #ffffff;
+	--hw-ink: #000000;
+	--hw-ink-soft: #1a1a1a;
+	--hw-muted: #4a4a4a;
+	--hw-line: #cccccc;
+	--hw-accent: #0066cc;
+	--hw-accent-hover: #0052a3;
+	
+	/* Stronger shadows for depth perception */
+	--hw-shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.15);
+	--hw-shadow-md: 0 10px 28px rgba(0, 0, 0, 0.20);
+	--hw-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+
+/* ============================================
+   DARK MODE (Optional)
+   For brands that want a dark aesthetic
+   ============================================ */
+
+body.hw-theme-dark {
+	--hw-bg: #0a0a0a;
+	--hw-ink: #ffffff;
+	--hw-ink-soft: #e0e0e0;
+	--hw-muted: #9ca3af;
+	--hw-line: #2a2a2a;
+	--hw-line-soft: #1a1a1a;
+	
+	--hw-accent: #3C6E71;
+	--hw-accent-hover: #ff4d9a;
+	--hw-accent-ink: #ffffff;
+	
+	/* Adjust shadows for dark mode */
+	--hw-shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.3);
+	--hw-shadow-md: 0 10px 28px rgba(0, 0, 0, 0.4);
+	--hw-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Dark mode card backgrounds */
+body.hw-theme-dark .hw-onsale-card {
+	background: #151515;
+}
+
+body.hw-theme-dark .hw-onsale-slider {
+	background: #1a1a1a;
+}
+
+body.hw-theme-dark .hw-onsale-banner__overlay {
+	background: rgba(0, 0, 0, 0.6);
+}
+
+
+/* ============================================
+   WORDPRESS INTEGRATION HELPER
+   ============================================ */
+
+/*
+ * To dynamically apply themes from WordPress admin,
+ * add this to your functions.php:
+ *
+ * function hw_onsale_apply_theme() {
+ *     $theme = get_option('hw_onsale_theme', 'default');
+ *     if ($theme !== 'default') {
+ *         add_filter('body_class', function($classes) use ($theme) {
+ *             $classes[] = 'hw-theme-' . sanitize_html_class($theme);
+ *             return $classes;
+ *         });
+ *     }
+ * }
+ * add_action('init', 'hw_onsale_apply_theme');
+ *
+ * Then in your plugin settings page, add a theme selector:
+ * - Default (Pink)
+ * - Teal
+ * - Emerald
+ * - Midnight
+ * - Gold
+ * - Monochrome
+ * - etc.
+ */
