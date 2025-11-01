@@ -1632,18 +1632,41 @@
                 html += '<div class="hw-onsale-slider__track" role="list">';
 
                 images.forEach(function(image, index) {
+                        const sizes = image.sizes || '(min-width:1200px) 25vw, (min-width:768px) 33vw, 50vw';
+                        const src = image.src || image.desktop || '';
+                        const altText = image.alt || alt || '';
+                        const width = image.width || 480;
+                        const height = image.height || 600;
+                        const loading = index === 0 ? 'eager' : 'lazy';
+                        const priority = index === 0 ? 'high' : 'auto';
+
                         html += '<div class="hw-onsale-slider__slide" role="listitem">';
                         if (permalink) {
                                 html += '<a href="' + escapeHtml(permalink) + '" class="hw-onsale-slider__link">';
                         }
-                        html += '<img src="' + escapeHtml(image.desktop) + '" ';
-                        html += 'srcset="' + escapeHtml(image.mobile) + ' 280w, ' + escapeHtml(image.desktop) + ' 480w" ';
-                        html += 'sizes="(max-width: 600px) 280px, 480px" ';
-                        html += 'alt="' + escapeHtml(image.alt || alt) + '" ';
-                        html += 'width="' + (image.width || 480) + '" ';
-                        html += 'height="' + (image.height || 600) + '" ';
-                        html += 'loading="' + (index === 0 ? 'eager' : 'lazy') + '" ';
-                        html += 'decoding="async" />';
+                        html += '<picture>';
+                        if (image.sources && image.sources.avif) {
+                                html += '<source type="image/avif" srcset="' + escapeHtml(image.sources.avif) + '" sizes="' + escapeHtml(sizes) + '">';
+                        }
+                        if (image.sources && image.sources.webp) {
+                                html += '<source type="image/webp" srcset="' + escapeHtml(image.sources.webp) + '" sizes="' + escapeHtml(sizes) + '">';
+                        }
+                        html += '<img src="' + escapeHtml(src) + '" ';
+                        if (image.srcset) {
+                                html += 'srcset="' + escapeHtml(image.srcset) + '" ';
+                        }
+                        html += 'sizes="' + escapeHtml(sizes) + '" ';
+                        html += 'alt="' + escapeHtml(altText) + '" ';
+                        html += 'width="' + width + '" ';
+                        html += 'height="' + height + '" ';
+                        html += 'loading="' + loading + '" ';
+                        html += 'fetchpriority="' + priority + '" ';
+                        html += 'decoding="async" data-hw-img';
+                        if (image.placeholder) {
+                                html += ' data-placeholder="' + escapeHtml(image.placeholder) + '"';
+                        }
+                        html += ' />';
+                        html += '</picture>';
                         if (permalink) {
                                 html += '</a>';
                         }

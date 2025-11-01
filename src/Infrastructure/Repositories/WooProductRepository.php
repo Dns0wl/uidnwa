@@ -769,51 +769,59 @@ class WooProductRepository implements ProductRepositoryInterface {
          * @param \WC_Product $product Product.
          * @return array
 	 */
-	private function get_product_images( $product ) {
-		$images     = array();
-		$image_ids  = array();
-		$gallery_ids = $product->get_gallery_image_ids();
+        private function get_product_images( $product ) {
+                $images      = array();
+                $image_ids   = array();
+                $gallery_ids = $product->get_gallery_image_ids();
 
-		// Add main image.
-		if ( $product->get_image_id() ) {
-			$image_ids[] = $product->get_image_id();
-		}
+                if ( $product->get_image_id() ) {
+                        $image_ids[] = $product->get_image_id();
+                }
 
-		// Add gallery images.
-		if ( ! empty( $gallery_ids ) ) {
-			$image_ids = array_merge( $image_ids, $gallery_ids );
-		}
+                if ( ! empty( $gallery_ids ) ) {
+                        $image_ids = array_merge( $image_ids, $gallery_ids );
+                }
 
-		foreach ( $image_ids as $image_id ) {
-			$images[] = $this->get_responsive_image_data( $image_id );
-		}
+                foreach ( $image_ids as $image_id ) {
+                        $payload = $this->build_image_payload( $image_id );
+                        if ( ! empty( $payload ) ) {
+                                $images[] = $payload;
+                        }
+                }
 
-		return $images;
-	}
+                return $images;
+        }
 
-	/**
-	 * Get responsive image data
-	 *
-	 * @param int $image_id Image ID.
-	 * @return array
-	 */
-	private function get_responsive_image_data( $image_id ) {
+        /**
+         * Build responsive image payload
+         *
+         * @param int $image_id Image ID.
+         * @return array
+         */
+        private function build_image_payload( $image_id ) {
+                if ( function_exists( 'hw_get_optimized_product_image' ) ) {
+                        $optimized = hw_get_optimized_product_image( $image_id );
+                        if ( $optimized ) {
+                                return $optimized;
+                        }
+                }
+
                 $desktop_size = array( 480, 600 );
                 $mobile_size  = array( 280, 350 );
 
-		$desktop_src = wp_get_attachment_image_src( $image_id, $desktop_size );
-		$mobile_src  = wp_get_attachment_image_src( $image_id, $mobile_size );
-		$full_src    = wp_get_attachment_image_src( $image_id, 'full' );
+                $desktop_src = wp_get_attachment_image_src( $image_id, $desktop_size );
+                $mobile_src  = wp_get_attachment_image_src( $image_id, $mobile_size );
+                $alt         = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
 
-		$alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
-
-		return array(
-			'desktop' => $desktop_src ? $desktop_src[0] : '',
-			'mobile'  => $mobile_src ? $mobile_src[0] : '',
-			'full'    => $full_src ? $full_src[0] : '',
-			'alt'     => $alt ? $alt : '',
-                        'width'   => $desktop_src ? $desktop_src[1] : 480,
-                        'height'  => $desktop_src ? $desktop_src[2] : 600,
+                return array(
+                        'src'         => $desktop_src ? $desktop_src[0] : '',
+                        'srcset'      => $desktop_src && $mobile_src ? sprintf( '%s 480w, %s 320w', $desktop_src[0], $mobile_src[0] ) : '',
+                        'sizes'       => '(min-width:1200px) 25vw, (min-width:768px) 33vw, 50vw',
+                        'alt'         => $alt ? $alt : '',
+                        'width'       => $desktop_src ? $desktop_src[1] : 480,
+                        'height'      => $desktop_src ? $desktop_src[2] : 600,
+                        'sources'     => array(),
+                        'placeholder' => '',
                 );
         }
 

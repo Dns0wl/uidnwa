@@ -26,31 +26,52 @@ class Slider {
                 }
 
 		ob_start();
-		?>
+                ?>
                 <div class="hw-onsale-slider" role="region" aria-label="<?php esc_attr_e( 'Product images', 'hw-onsale' ); ?>" data-modal-trigger="slider">
-			<div class="hw-onsale-slider__track" role="list">
-			<?php foreach ( $images as $index => $image ) : ?>
-				<div class="hw-onsale-slider__slide" role="listitem">
-					<?php if ( $permalink ) : ?>
-						<a href="<?php echo esc_url( $permalink ); ?>" class="hw-onsale-slider__link">
-					<?php endif; ?>
-                                                <img
-                                                         src="<?php echo esc_url( $image['desktop'] ); ?>"
-                                                         srcset="<?php echo esc_attr( $image['mobile'] . ' 280w, ' . $image['desktop'] . ' 480w' ); ?>"
-                                                         sizes="(max-width: 600px) 280px, 480px"
-							 alt="<?php echo esc_attr( $image['alt'] ? $image['alt'] : $alt ); ?>"
-							 width="<?php echo esc_attr( $image['width'] ); ?>"
-							 height="<?php echo esc_attr( $image['height'] ); ?>"
-							 loading="<?php echo $index === 0 ? 'eager' : 'lazy'; ?>"
-							 decoding="async"
-							 fetchpriority="<?php echo esc_attr( $index === 0 ? $fetchpriority : 'auto' ); ?>"
-						/>
-					<?php if ( $permalink ) : ?>
-						</a>
-					<?php endif; ?>
-				</div>
-			<?php endforeach; ?>
-			</div>
+                        <div class="hw-onsale-slider__track" role="list">
+                        <?php foreach ( $images as $index => $image ) :
+                                $sources     = isset( $image['sources'] ) && is_array( $image['sources'] ) ? $image['sources'] : array();
+                                $sizes       = isset( $image['sizes'] ) ? $image['sizes'] : '(min-width:1200px) 25vw, (min-width:768px) 33vw, 50vw';
+                                $placeholder = isset( $image['placeholder'] ) ? $image['placeholder'] : '';
+                                $img_alt     = ! empty( $image['alt'] ) ? $image['alt'] : $alt;
+                                $is_first    = ( 0 === $index );
+                                $loading     = $is_first ? 'eager' : 'lazy';
+                                $priority    = $is_first ? $fetchpriority : 'auto';
+                                if ( $is_first && function_exists( 'hw_perf_archive_register_lcp_image' ) ) {
+                                        hw_perf_archive_register_lcp_image( $image );
+                                }
+                                ?>
+                                <div class="hw-onsale-slider__slide" role="listitem">
+                                        <?php if ( $permalink ) : ?>
+                                                <a href="<?php echo esc_url( $permalink ); ?>" class="hw-onsale-slider__link">
+                                        <?php endif; ?>
+                                                <picture>
+                                                        <?php if ( ! empty( $sources['avif'] ) ) : ?>
+                                                                <source type="image/avif" srcset="<?php echo esc_attr( $sources['avif'] ); ?>" sizes="<?php echo esc_attr( $sizes ); ?>" />
+                                                        <?php endif; ?>
+                                                        <?php if ( ! empty( $sources['webp'] ) ) : ?>
+                                                                <source type="image/webp" srcset="<?php echo esc_attr( $sources['webp'] ); ?>" sizes="<?php echo esc_attr( $sizes ); ?>" />
+                                                        <?php endif; ?>
+                                                        <img
+                                                                src="<?php echo esc_url( $image['src'] ); ?>"
+                                                                <?php if ( ! empty( $image['srcset'] ) ) : ?>srcset="<?php echo esc_attr( $image['srcset'] ); ?>"<?php endif; ?>
+                                                                sizes="<?php echo esc_attr( $sizes ); ?>"
+                                                                alt="<?php echo esc_attr( $img_alt ); ?>"
+                                                                width="<?php echo esc_attr( $image['width'] ?? 480 ); ?>"
+                                                                height="<?php echo esc_attr( $image['height'] ?? 600 ); ?>"
+                                                                loading="<?php echo esc_attr( $loading ); ?>"
+                                                                fetchpriority="<?php echo esc_attr( $priority ); ?>"
+                                                                decoding="async"
+                                                                <?php if ( $placeholder ) : ?>data-placeholder="<?php echo esc_url( $placeholder ); ?>"<?php endif; ?>
+                                                                data-hw-img
+                                                        />
+                                                </picture>
+                                        <?php if ( $permalink ) : ?>
+                                                </a>
+                                        <?php endif; ?>
+                                </div>
+                        <?php endforeach; ?>
+                        </div>
 
                         <?php if ( count( $images ) > 1 ) : ?>
                                 <?php

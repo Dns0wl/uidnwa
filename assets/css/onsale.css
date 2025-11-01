@@ -542,17 +542,19 @@ body.hw-theme-accent-custom {
    ============================================ */
 
 .hw-onsale-card {
-	position: relative;
-	background: var(--hw-bg);
-	border-radius: 0;
-	overflow: visible;
-	transition: none;
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	/* NO shadows or borders - luxury minimal */
-	box-shadow: none;
-	border: none;
+        position: relative;
+        background: var(--hw-bg);
+        border-radius: 0;
+        overflow: visible;
+        transition: none;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        /* NO shadows or borders - luxury minimal */
+        box-shadow: none;
+        border: none;
+        contain: layout style paint;
+        transform: translateZ(0);
 }
 
 /* D) Remove hover shadow - keep clean */
@@ -563,9 +565,11 @@ body.hw-theme-accent-custom {
 
 /* Prevent CLS - fixed aspect ratio container */
 .hw-onsale-card::before {
-	content: '';
-	display: block;
-	width: 100%;
+        content: '';
+        display: block;
+        width: 100%;
+        padding-top: 125%;
+        pointer-events: none;
 }
 
 /* ============================================
@@ -583,6 +587,11 @@ body.hw-theme-accent-custom {
         letter-spacing: 0.02em;
         backdrop-filter: blur(4px);
         line-height: 1;
+        min-width: 52px;
+        min-height: 52px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
 }
 
 @media (min-width: 768px) {
@@ -642,6 +651,13 @@ body.hw-theme-accent-custom {
 .hw-onsale-slider__slide {
         flex: 0 0 100%;
         position: relative;
+        overflow: hidden;
+}
+
+.hw-onsale-slider__slide::before {
+        content: '';
+        display: block;
+        padding-top: 125%;
 }
 
 .hw-onsale-slider__link {
@@ -656,16 +672,18 @@ body.hw-theme-accent-custom {
         outline-offset: 4px;
 }
 
+.hw-onsale-slider__slide picture,
 .hw-onsale-slider__slide img {
+        position: absolute;
+        inset: 0;
         width: 100%;
-        height: auto;
+        height: 100%;
         display: block;
+}
+
+.hw-onsale-slider__slide img {
         object-fit: cover;
-        aspect-ratio: 1 / 1.25;
-        max-width: 480px;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: var(--hw-radius-img);
+        background: linear-gradient(135deg, rgba(240,243,247,.9), rgba(226,231,239,.7));
         transition: transform 400ms var(--hw-ease);
 }
 
